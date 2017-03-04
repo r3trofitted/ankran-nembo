@@ -3,6 +3,15 @@ require 'test_helper'
 class CharacterTest < ActiveSupport::TestCase
   using Distance::Refinements
   
+  test "#race=: assigning the character's race extends the character with the race" do
+    conan    = Character.new
+    cimerian = Race.new
+    
+    conan.race = cimerian
+    
+    assert_kind_of cimerian, conan
+  end
+  
   test "#darkvision: by default, a character has no darkvision" do
     assert_equal 0.feet, Character.new.darkvision
   end

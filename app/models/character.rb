@@ -10,6 +10,11 @@ class Character < ApplicationRecord
   attribute :languages, Codex::Type.new(LanguagesSet)
   serialize :armor
   
+  def race=(race)
+    super
+    extend(race)
+  end
+  
   def darkvision
     0.feet
   end
@@ -17,8 +22,6 @@ class Character < ApplicationRecord
   def speed
     base_speed - (armor&.speed_penalty(self) || 0)
   end
-  
-  private
   
   def base_speed
     30.feet
