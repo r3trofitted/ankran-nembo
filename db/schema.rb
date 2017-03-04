@@ -10,6 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20170301195202) do
+
+  create_table "characters", force: :cascade do |t|
+    t.string "name"
+    t.string "race"
+    t.string "character_class"
+    t.integer "level"
+    t.integer "strength"
+    t.integer "dexterity"
+    t.integer "constitution"
+    t.integer "intelligence"
+    t.integer "wisdom"
+    t.integer "charisma"
+    t.string "proficiencies"
+    t.string "languages"
+    t.text "armor"
+    t.text "shield"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["languages"], name: "index_characters_on_languages"
+    t.index ["proficiencies"], name: "index_characters_on_proficiencies"
+  end
 
 end

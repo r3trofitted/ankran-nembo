@@ -1,0 +1,11 @@
+fafhrd:
+  name: Fafhrd
+  race: human
+  character_class: fighter
+  level: 5
+  strength: 16
+  dexterity: 13
+  constitution: 18
+  intelligence: 12
+  wisdom: 9
+  charisma: 14
