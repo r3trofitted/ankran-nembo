@@ -20,10 +20,16 @@ class Character < ApplicationRecord
   end
   
   def speed
-    base_speed - (armor&.speed_penalty(self) || 0)
+    base_speed - armor_speed_penalty
   end
   
   def base_speed
     30.feet
+  end
+  
+  private
+  
+  def armor_speed_penalty
+    armor&.speed_penalty(self) || 0
   end
 end
