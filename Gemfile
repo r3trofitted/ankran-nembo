@@ -5,8 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby "2.4.0"
-
 gem 'jbuilder', '~> 2.5'
 gem 'puma', '~> 3.7'
 gem 'rails', github: "rails/rails"
@@ -24,6 +22,7 @@ gem 'webpacker', github: "rails/webpacker"
 
 group :development, :test do
   gem 'capybara', '~> 2.7.0'
+  gem 'rubocop', require: false
   gem 'selenium-webdriver'
 end
 
@@ -32,4 +31,9 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', github: 'rails/web-console'
+end
+
+group :test do
+  gem "codeclimate-test-reporter", require: false
+  gem "simplecov", '>= 0.13.0', require: false
 end
