@@ -38,4 +38,12 @@ class CharacterTest < ActiveSupport::TestCase
     assert_includes bilbo.proficiencies, :stealth
     assert_includes bilbo.proficiencies, :sleight_of_hand
   end
+  
+  test "Abilities can be altered" do
+    moonglum = Character.new(constitution: 12)
+    
+    moonglum.alter_ability :constitution, by: 2
+    
+    assert_equal 14, moonglum.constitution.score
+  end
 end

@@ -12,6 +12,7 @@ class Ability
   def +(other)
     Ability.new(score + other)
   end
+  alias_method :add, :+
   
   class Type < ActiveRecord::Type::Value
     def cast(value)

@@ -27,6 +27,12 @@ class Character < ApplicationRecord
     30.feet
   end
   
+  def alter_ability(name, by:)
+    raise ArgumentError, "#{name} is not a valid Ability" unless name.in? Character.abilities
+    
+    public_send "#{name}=", public_send(name).add(by)
+  end
+  
   def gain_language(*language_or_languages)
     languages.merge language_or_languages
   end
