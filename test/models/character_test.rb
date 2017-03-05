@@ -27,4 +27,15 @@ class CharacterTest < ActiveSupport::TestCase
     
     assert_equal 20.feet, red_sonja.speed # 30′ (default) - 10′ (penalty) = 20′
   end
+  
+  test "Proficiencies and languages can be gained" do
+    bilbo = Character.new
+    
+    bilbo.gain_language :elvish
+    assert_includes bilbo.languages, :elvish
+    
+    bilbo.gain_proficiency :stealth, :sleight_of_hand
+    assert_includes bilbo.proficiencies, :stealth
+    assert_includes bilbo.proficiencies, :sleight_of_hand
+  end
 end

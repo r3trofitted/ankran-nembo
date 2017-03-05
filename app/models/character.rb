@@ -27,6 +27,14 @@ class Character < ApplicationRecord
     30.feet
   end
   
+  def gain_language(*language_or_languages)
+    languages.merge language_or_languages
+  end
+  
+  def gain_proficiency(*proficiency_or_proficiencies)
+    proficiencies.merge proficiency_or_proficiencies
+  end
+  
   private
   
   def armor_speed_penalty
