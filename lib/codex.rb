@@ -16,12 +16,7 @@ class Codex < DelegateClass(Set)
   end
 
   def expand
-    memo = @set.to_a
-    groups.each_with_object(memo) do |(name, values), memo|
-      memo.concat(values) if name.in?(memo)
-    end
-
-    Codex.new(*memo)
+    Codex.new(*@set.map { |entry| groups.fetch(entry, [entry]) }.flatten)
   end
 
   class Type < ActiveRecord::Type::Value
