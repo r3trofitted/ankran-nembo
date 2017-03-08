@@ -15,7 +15,7 @@ class Race < Module
   end
   
   def subrace(**definition, &block)
-    Race.new **definition.merge(subrace_of: self), &block
+    Race.new(**definition.merge(subrace_of: self), &block)
   end
   
   def speed
