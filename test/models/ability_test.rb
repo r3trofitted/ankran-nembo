@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class AbilityTest < ActiveSupport::TestCase
   test "the correct modifier is returned for each score from 1 to 30" do

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class LightArmorTest < ActiveSupport::TestCase
   test "the AC is modified by the wearer's Dexterity modifier" do

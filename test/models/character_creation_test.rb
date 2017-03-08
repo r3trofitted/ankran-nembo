@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class CharacterCreationTest < ActiveSupport::TestCase
   test "#character returns the Character being created" do
