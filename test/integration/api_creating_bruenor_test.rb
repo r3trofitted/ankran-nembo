@@ -24,8 +24,6 @@ class ApiCreatingBruenorTest < ActionDispatch::IntegrationTest
   end
   
   test "2. Choosing a class" do
-    skip
-    
     @creation.choose_character_class CharacterClasses::Fighter
     
     assert_equal 1, bruenor.level
