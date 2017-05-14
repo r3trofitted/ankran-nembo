@@ -11,4 +11,10 @@ class CharacterCreation < ApplicationRecord
       race.ability_score_increases.each { |name, amount| c.alter_ability name, by: amount }
     end
   end
+  
+  def choose_character_class(character_class)
+    character.tap do |c|
+      c.character_class = character_class
+    end
+  end
 end
