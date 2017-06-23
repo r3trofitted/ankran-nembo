@@ -20,7 +20,7 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'therubyracer', platforms: :ruby
 
 group :development, :test do
-  gem 'capybara', '~> 2.7.0'
+  gem 'capybara', '~> 2.7'
   gem 'rubocop', require: false
   gem 'selenium-webdriver'
 end
