@@ -15,12 +15,21 @@ class Character < ApplicationRecord
     extend(race)
   end
   
+  def character_class=(character_class)
+    super
+    extend(character_class)
+  end
+  
   def darkvision
     0.feet
   end
   
   def speed
     base_speed - armor_speed_penalty
+  end
+  
+  def hit_dice
+    Dice.new(sides:8)
   end
   
   def base_speed
