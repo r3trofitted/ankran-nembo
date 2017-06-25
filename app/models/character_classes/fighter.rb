@@ -1,4 +1,3 @@
 module CharacterClasses
-  module Fighter
-  end
+  Fighter = CharacterClass.new hit_die_type: :d10
 end
