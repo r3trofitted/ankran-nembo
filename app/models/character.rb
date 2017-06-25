@@ -29,7 +29,7 @@ class Character < ApplicationRecord
   end
   
   def hit_dice
-    Dice.new(sides:8)
+    Dice.new(sides: 8)
   end
   
   def base_speed

@@ -14,7 +14,7 @@ class Dice
   end
   
   def roll!(random = Random)
-    Roll.new @count.times.map { random.rand(1..@sides) }, modifier: @modifier
+    Roll.new Array.new(@count) { random.rand(1..@sides) }, modifier: @modifier
   end
   
   def ==(other)
