@@ -12,6 +12,15 @@ class CharacterTest < ActiveSupport::TestCase
     assert_kind_of cimerian, conan
   end
   
+  test "#character_class=: assigning the character's class extends the character with the character class" do
+    sparhawk       = Character.new
+    pandion_knight = CharacterClass.new
+    
+    sparhawk.character_class = pandion_knight
+    
+    assert_kind_of pandion_knight, sparhawk
+  end
+  
   test "#darkvision: by default, a character has no darkvision" do
     assert_equal 0.feet, Character.new.darkvision
   end
@@ -26,6 +35,10 @@ class CharacterTest < ActiveSupport::TestCase
     red_sonja.armor.define_singleton_method(:speed_penalty) { |_| 10.feet }
     
     assert_equal 20.feet, red_sonja.speed # 30′ (default) - 10′ (penalty) = 20′
+  end
+  
+  test "#hit_dice: by default, a character has a hit dice of 1d8" do
+    assert_equal Dice.new(1, sides:8), Character.new.hit_dice
   end
   
   test "Proficiencies and languages can be gained" do
