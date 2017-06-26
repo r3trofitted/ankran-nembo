@@ -25,12 +25,11 @@ class Dice
     type[/(?<=d)\d+/i]
   end
 
-  class Roll
-    delegate :+, :-, :*, :/, to: :total
-    
+  class Roll < DelegateClass(Integer)
     def initialize(dice_scores, modifier: 0)
       @dice_scores = Array(dice_scores)
       @modifier    = modifier
+      super(total)
       freeze
     end
     
@@ -40,17 +39,6 @@ class Dice
     
     def inspect
       "#<#{self.class} scores: #{@dice_scores * ', '}, modifier: #{'%+d' % @modifier}>"
-    end
-    
-    def coerce(other)
-      case other
-      when Integer
-        [other, total]
-      when Float
-        [other, Float(total)]
-      else
-        super
-      end
     end
   end
 end
