@@ -21,6 +21,7 @@ ratings:
 exclude_paths:
 - config/
 - db/
+- doc/
 - test/
 - public/
 - '.rubocop.yml'

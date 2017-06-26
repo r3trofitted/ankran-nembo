@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Character - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="ApplicationRecord.html">ApplicationRecord</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-alter_ability">#alter_ability</a>
+    
+    <li ><a href="#method-i-base_speed">#base_speed</a>
+    
+    <li class="calls-super" ><a href="#method-i-character_class-3D">#character_class=</a>
+    
+    <li ><a href="#method-i-darkvision">#darkvision</a>
+    
+    <li ><a href="#method-i-gain_language">#gain_language</a>
+    
+    <li ><a href="#method-i-gain_proficiency">#gain_proficiency</a>
+    
+    <li ><a href="#method-i-hit_dice">#hit_dice</a>
+    
+    <li class="calls-super" ><a href="#method-i-race-3D">#race=</a>
+    
+    <li ><a href="#method-i-speed">#speed</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Character">
+  <h1 id="class-Character" class="class">
+    class Character
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-alter_ability" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">alter_ability</span><span
+            class="method-args">(name, by:)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="alter_ability-source">
+            <pre><span class="ruby-comment"># File app/models/character.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">alter_ability</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">by</span>))
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;#{name} is not a valid Ability&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">in?</span> <span class="ruby-constant">Character</span>.<span class="ruby-identifier">abilities</span>
+  
+  <span class="ruby-identifier">public_send</span> <span class="ruby-node">&quot;#{name}=&quot;</span>, <span class="ruby-identifier">public_send</span>(<span class="ruby-identifier">name</span>).<span class="ruby-identifier">add</span>(<span class="ruby-identifier">by</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-base_speed" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">base_speed</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="base_speed-source">
+            <pre><span class="ruby-comment"># File app/models/character.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">base_speed</span>
+  <span class="ruby-value">30</span>.<span class="ruby-identifier">feet</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-character_class-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">character_class=</span><span
+            class="method-args">(character_class)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="character_class-3D-source">
+            <pre><span class="ruby-comment"># File app/models/character.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">character_class=</span>(<span class="ruby-identifier">character_class</span>)
+  <span class="ruby-keyword">super</span>
+  <span class="ruby-identifier">extend</span>(<span class="ruby-identifier">character_class</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-darkvision" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">darkvision</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="darkvision-source">
+            <pre><span class="ruby-comment"># File app/models/character.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">darkvision</span>
+  <span class="ruby-value">0</span>.<span class="ruby-identifier">feet</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-gain_language" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">gain_language</span><span
+            class="method-args">(*language_or_languages)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="gain_language-source">
+            <pre><span class="ruby-comment"># File app/models/character.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">gain_language</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">language_or_languages</span>)
+  <span class="ruby-identifier">languages</span>.<span class="ruby-identifier">merge</span> <span class="ruby-identifier">language_or_languages</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-gain_proficiency" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">gain_proficiency</span><span
+            class="method-args">(*proficiency_or_proficiencies)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="gain_proficiency-source">
+            <pre><span class="ruby-comment"># File app/models/character.rb, line 49</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">gain_proficiency</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">proficiency_or_proficiencies</span>)
+  <span class="ruby-identifier">proficiencies</span>.<span class="ruby-identifier">merge</span> <span class="ruby-identifier">proficiency_or_proficiencies</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-hit_dice" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">hit_dice</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="hit_dice-source">
+            <pre><span class="ruby-comment"># File app/models/character.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">hit_dice</span>
+  <span class="ruby-constant">Dice</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">sides</span><span class="ruby-operator">:</span> <span class="ruby-value">8</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-race-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">race=</span><span
+            class="method-args">(race)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="race-3D-source">
+            <pre><span class="ruby-comment"># File app/models/character.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">race=</span>(<span class="ruby-identifier">race</span>)
+  <span class="ruby-keyword">super</span>
+  <span class="ruby-identifier">extend</span>(<span class="ruby-identifier">race</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-speed" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">speed</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="speed-source">
+            <pre><span class="ruby-comment"># File app/models/character.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">speed</span>
+  <span class="ruby-identifier">base_speed</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">armor_speed_penalty</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

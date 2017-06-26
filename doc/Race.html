@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Race - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Module
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-ability_score_increases">#ability_score_increases</a>
+    
+    <li ><a href="#method-i-ability_score_increases-3D">#ability_score_increases=</a>
+    
+    <li ><a href="#method-i-darkvision">#darkvision</a>
+    
+    <li ><a href="#method-i-darkvision-3D">#darkvision=</a>
+    
+    <li class="calls-super" ><a href="#method-i-extend_object">#extend_object</a>
+    
+    <li ><a href="#method-i-languages">#languages</a>
+    
+    <li ><a href="#method-i-languages-3D">#languages=</a>
+    
+    <li ><a href="#method-i-proficiencies">#proficiencies</a>
+    
+    <li ><a href="#method-i-proficiencies-3D">#proficiencies=</a>
+    
+    <li ><a href="#method-i-speed">#speed</a>
+    
+    <li ><a href="#method-i-speed-3D">#speed=</a>
+    
+    <li ><a href="#method-i-subrace">#subrace</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Race">
+  <h1 id="class-Race" class="class">
+    class Race
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="CORE_TRAITS">CORE_TRAITS
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(**definition, &block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File app/models/race.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">definition</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">traits</span> = <span class="ruby-identifier">definition</span>.<span class="ruby-identifier">extract!</span>(<span class="ruby-operator">*</span><span class="ruby-constant">CORE_TRAITS</span>)
+  <span class="ruby-identifier">traits</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">trait</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span> <span class="ruby-identifier">public_send</span> <span class="ruby-node">&quot;#{trait}=&quot;</span>, <span class="ruby-identifier">value</span> }
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@original_race</span> = <span class="ruby-identifier">definition</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:subrace_of</span>)
+    <span class="ruby-identifier">singleton_class</span>.<span class="ruby-identifier">prepend</span> <span class="ruby-constant">SubraceRules</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">super</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-ability_score_increases" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">ability_score_increases</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="ability_score_increases-source">
+            <pre><span class="ruby-comment"># File app/models/race.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">ability_score_increases</span>
+  <span class="ruby-ivar">@ability_score_increases</span> <span class="ruby-operator">||</span> {}
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-ability_score_increases-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">ability_score_increases=</span><span
+            class="method-args">(value)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="ability_score_increases-3D-source">
+            <pre><span class="ruby-comment"># File app/models/race.rb, line 43</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">ability_score_increases=</span>(<span class="ruby-identifier">value</span>)
+  <span class="ruby-ivar">@ability_score_increases</span> = <span class="ruby-identifier">value</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-darkvision" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">darkvision</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="darkvision-source">
+            <pre><span class="ruby-comment"># File app/models/race.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">darkvision</span>
+  <span class="ruby-ivar">@darkvision</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-darkvision-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">darkvision=</span><span
+            class="method-args">(value)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="darkvision-3D-source">
+            <pre><span class="ruby-comment"># File app/models/race.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">darkvision=</span>(<span class="ruby-identifier">value</span>)
+  <span class="ruby-ivar">@darkvision</span> = <span class="ruby-identifier">value</span>
+  <span class="ruby-identifier">define_method</span>(<span class="ruby-value">:darkvision</span>) { <span class="ruby-identifier">value</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-extend_object" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extend_object</span><span
+            class="method-args">(o)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="extend_object-source">
+            <pre><span class="ruby-comment"># File app/models/race.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extend_object</span>(<span class="ruby-identifier">o</span>)
+  <span class="ruby-identifier">o</span>.<span class="ruby-identifier">extend</span> <span class="ruby-ivar">@original_race</span>
+  <span class="ruby-keyword">super</span>(<span class="ruby-identifier">o</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-languages" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">languages</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="languages-source">
+            <pre><span class="ruby-comment"># File app/models/race.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">languages</span>
+  <span class="ruby-ivar">@languages</span> <span class="ruby-operator">||</span> []
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-languages-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">languages=</span><span
+            class="method-args">(value)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="languages-3D-source">
+            <pre><span class="ruby-comment"># File app/models/race.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">languages=</span>(<span class="ruby-identifier">value</span>)
+  <span class="ruby-ivar">@languages</span> = <span class="ruby-identifier">value</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-proficiencies" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">proficiencies</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="proficiencies-source">
+            <pre><span class="ruby-comment"># File app/models/race.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">proficiencies</span>
+  <span class="ruby-ivar">@proficiences</span> <span class="ruby-operator">||</span> []
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-proficiencies-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">proficiencies=</span><span
+            class="method-args">(value)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="proficiencies-3D-source">
+            <pre><span class="ruby-comment"># File app/models/race.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">proficiencies=</span>(<span class="ruby-identifier">value</span>)
+  <span class="ruby-ivar">@proficiences</span> = <span class="ruby-identifier">value</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-speed" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">speed</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="speed-source">
+            <pre><span class="ruby-comment"># File app/models/race.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">speed</span>
+  <span class="ruby-ivar">@speed</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-speed-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">speed=</span><span
+            class="method-args">(value)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="speed-3D-source">
+            <pre><span class="ruby-comment"># File app/models/race.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">speed=</span>(<span class="ruby-identifier">value</span>)
+  <span class="ruby-ivar">@speed</span> = <span class="ruby-identifier">value</span>
+  <span class="ruby-identifier">define_method</span>(<span class="ruby-value">:base_speed</span>) { <span class="ruby-identifier">value</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-subrace" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">subrace</span><span
+            class="method-args">(**definition, &block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="subrace-source">
+            <pre><span class="ruby-comment"># File app/models/race.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">subrace</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">definition</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-constant">Race</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">definition</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">subrace_of</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
