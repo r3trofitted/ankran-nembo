@@ -33,4 +33,13 @@ class CharacterCreationTest < ActiveSupport::TestCase
     
     assert_equal 2, creation.character.charisma.score
   end
+  
+  test "When a character class is chosen, the Character's base hit points are correctly set" do
+    creation = CharacterCreation.new
+    character_class = CharacterClass.new hit_die_type: :d20
+    
+    creation.choose_character_class character_class
+    
+    assert_equal 20, creation.character.base_hit_points
+  end
 end
