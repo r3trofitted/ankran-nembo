@@ -44,6 +44,10 @@ class Character < ApplicationRecord
     hit_point_maximum - lost_hit_points
   end
   
+  def proficiency_bonus
+    level.fdiv(4).ceil + 1 # formula based on the Character Advancement table, PHB p.15
+  end
+  
   def base_speed
     30.feet
   end
