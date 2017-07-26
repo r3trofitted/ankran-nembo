@@ -59,4 +59,15 @@ class CharacterTest < ActiveSupport::TestCase
     
     assert_equal 14, moonglum.constitution.score
   end
+  
+  test "A character has abilities modifiers" do
+    the_grey_mouser = Character.new
+    
+    assert_respond_to the_grey_mouser, :strength_modifier
+    assert_respond_to the_grey_mouser, :dexterity_modifier
+    assert_respond_to the_grey_mouser, :constitution_modifier
+    assert_respond_to the_grey_mouser, :intelligence_modifier
+    assert_respond_to the_grey_mouser, :wisdom_modifier
+    assert_respond_to the_grey_mouser, :charisma_modifier
+  end
 end

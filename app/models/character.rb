@@ -5,10 +5,14 @@ class Character < ApplicationRecord
     %i(strength dexterity constitution intelligence wisdom charisma)
   end
   
-  abilities.each { |ability| attribute ability, :ability }
   attribute :proficiencies, Codex::Type.new(ProficienciesSet)
   attribute :languages, Codex::Type.new(LanguagesSet)
   serialize :armor
+  
+  abilities.each do |ability|
+    attribute ability, :ability
+    delegate :modifier, to: ability, prefix: true
+  end
   
   def race=(race)
     super
