@@ -36,6 +36,14 @@ class Character < ApplicationRecord
     Dice.new(sides: 8)
   end
   
+  def hit_point_maximum
+    base_hit_points + constitution_modifier
+  end
+  
+  def hit_points
+    hit_point_maximum - lost_hit_points
+  end
+  
   def base_speed
     30.feet
   end

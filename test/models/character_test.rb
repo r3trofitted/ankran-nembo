@@ -41,6 +41,21 @@ class CharacterTest < ActiveSupport::TestCase
     assert_equal Dice.new(1, sides:8), Character.new.hit_dice
   end
   
+  test "#hit_point_maximum is the sum of the base hit points plus the constitution modifier" do
+    conan = Character.new base_hit_points: 10, constitution: 12 # hit point maximum: 10 (base) + 1 (constitution modifier) = 11
+    
+    assert_equal 11, conan.hit_point_maximum
+  end
+  
+  test "#hit_points is equal to the hit point maximum minus the lost hit points" do
+    conan = Character.new base_hit_points: 10, constitution: 12 # hit point maximum: 10 (base) + 1 (constitution modifier) = 11
+    
+    assert_equal 11, conan.hit_points
+    
+    conan.lost_hit_points = 8
+    assert_equal 3, conan.hit_points
+  end
+  
   test "Proficiencies and languages can be gained" do
     bilbo = Character.new
     
