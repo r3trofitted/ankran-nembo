@@ -45,6 +45,11 @@ class Dice
     [count, sides, modifier] == [other.count, other.sides, other.modifier]
   end
   
+  # The maximum score that could be rolled for this +Dice+ instance
+  def max
+    (count * sides) + modifier
+  end
+  
   # :nodoc:
   def sides_from_type(type)
     type[/(?<=d)\d+/i]

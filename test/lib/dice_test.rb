@@ -51,6 +51,10 @@ class DiceTest < ActiveSupport::TestCase
     assert_kind_of Dice::Roll, Dice.new.roll!
   end
   
+  test "#max returns the maximum score that could be rolled" do
+    assert_equal 20, Dice.parse("3d6 + 2").max
+  end
+  
   test ".parse creates a Dice object from a string representation" do
     dice = Dice.parse("1d10")
     
