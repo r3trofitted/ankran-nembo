@@ -43,6 +43,16 @@ class CharacterCreationTest < ActiveSupport::TestCase
     assert_equal 20, creation.character.base_hit_points
   end
   
+  test "When a character class is chosen, its proficiencies are added to the Character" do
+    creation = CharacterCreation.new
+    character_class = CharacterClass.new proficiencies: [:cooking, :grooming]
+    
+    creation.choose_character_class character_class
+    
+    assert_includes creation.character.proficiencies, :cooking
+    assert_includes creation.character.proficiencies, :grooming
+  end
+  
   test "When ability scores are assigned, the racial increases are preserved" do
     creation = CharacterCreation.new
     race     = Race.new ability_score_increases: { dexterity: 1 }
