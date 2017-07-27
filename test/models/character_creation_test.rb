@@ -42,4 +42,15 @@ class CharacterCreationTest < ActiveSupport::TestCase
     
     assert_equal 20, creation.character.base_hit_points
   end
+  
+  test "When ability scores are assigned, the racial increases are preserved" do
+    creation = CharacterCreation.new
+    race     = Race.new ability_score_increases: { dexterity: 1 }
+    creation.choose_race race
+    
+    assert_equal 1, creation.character.dexterity.score
+    
+    creation.assign_ability_score :dexterity, 15
+    assert_equal 16, creation.character.dexterity.score # 15 + 1
+  end
 end
