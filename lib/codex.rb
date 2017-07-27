@@ -1,24 +1,35 @@
-class Codex < DelegateClass(Set)
+class Codex < DelegateClass(SetWithIndifferentAccess)
   class_attribute :groups, instance_writer: false
   
-  def initialize(*values)
-    @set = Set.new values, &:to_sym
+  def self.[](*values)
+    new(values)
+  end
+  
+  def initialize(set_or_values = nil)
+    @set = if set_or_values.is_a?(SetWithIndifferentAccess)
+             set_or_values
+           else
+             SetWithIndifferentAccess.new(set_or_values)
+           end
     super(@set)
   end
   
-  def <<(o)
-    super o.to_sym
-  end
-  alias_method :add, :<<
-
   def include?(o)
-    super o.to_sym
+    expanded_set.include? o
   end
 
   def expand
-    Codex.new(*@set.map { |entry| groups.fetch(entry, [entry]) }.flatten)
+    Codex.new(expanded_set)
   end
-
+  
+  private def expanded_set
+    if groups.present?
+      SetWithIndifferentAccess.new @set.flat_map { |entry| groups.with_indifferent_access.fetch(entry, []) << entry }
+    else
+      @set
+    end
+  end
+  
   class Type < ActiveRecord::Type::Value
     def initialize(codex_class = Codex, **kwargs)
       raise ArgumentError, "#{codex_class} is not a valid Codex" unless codex_class <= Codex
@@ -31,7 +42,7 @@ class Codex < DelegateClass(Set)
       if value.kind_of? @codex_class
         super
       else
-        super @codex_class.new(*value)
+        super @codex_class.new(value)
       end
     end
     
