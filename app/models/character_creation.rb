@@ -18,4 +18,8 @@ class CharacterCreation < ApplicationRecord
       c.base_hit_points = Dice.new(1, character_class.hit_die_type).max
     end
   end
+  
+  def assign_ability_score(ability, score)
+    character[ability] += score
+  end
 end
