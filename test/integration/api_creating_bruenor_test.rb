@@ -31,6 +31,14 @@ class ApiCreatingBruenorTest < ActionDispatch::IntegrationTest
     assert_equal Dice("1d10"), bruenor.hit_dice
     assert_equal 10 + bruenor.constitution_modifier, bruenor.hit_points
     assert_equal +2, bruenor.proficiency_bonus
+    assert bruenor.proficient_in?(:light_armor)
+    assert bruenor.proficient_in?(:medium_armor)
+    assert bruenor.proficient_in?(:heavy_armor)
+    assert bruenor.proficient_in?(:shields)
+    assert bruenor.proficient_in?(:simple_weapons)
+    assert bruenor.proficient_in?(:martial_weapons)
+    assert bruenor.proficient_in?(:strength_saving_throw)
+    assert bruenor.proficient_in?(:constitution_saving_throw)
   end
 
   test "3. Determining ability scores" do
