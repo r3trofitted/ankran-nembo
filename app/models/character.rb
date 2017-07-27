@@ -48,6 +48,10 @@ class Character < ApplicationRecord
     level.fdiv(4).ceil + 1 # formula based on the Character Advancement table, PHB p.15
   end
   
+  def proficient_in?(proficiency)
+    proficiencies.include? proficiency
+  end
+  
   def base_speed
     30.feet
   end

@@ -70,13 +70,27 @@ class CharacterTest < ActiveSupport::TestCase
     end
   end
   
+  test "#proficient_in? returns true if the character has the right proficiency" do
+    fafhrd = Character.new(proficiencies: [:simple_weapons, :greatsword, :performance])
+    
+    assert fafhrd.proficient_in? :greatsword
+    assert fafhrd.proficient_in? :dagger # value from the +:simple_weapons+ proficiencies group
+    refute fafhrd.proficient_in? :insight
+  end
+  
+  test "#proficient_in? accepts a string or a symbol" do
+    fafhrd = Character.new(proficiencies: [:greatsword, :performance])
+    
+    assert fafhrd.proficient_in? "greatsword"
+  end
+  
   test "Proficiencies and languages can be gained" do
     bilbo = Character.new
     
     bilbo.gain_language :elvish
     assert_includes bilbo.languages, :elvish
     
-    bilbo.gain_proficiency :stealth, :sleight_of_hand
+    bilbo.gain_proficiency :stealth, "sleight_of_hand" # works with both symbols and strings
     assert_includes bilbo.proficiencies, :stealth
     assert_includes bilbo.proficiencies, :sleight_of_hand
   end
