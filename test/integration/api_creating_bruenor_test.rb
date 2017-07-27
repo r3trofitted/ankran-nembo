@@ -5,17 +5,18 @@ class ApiCreatingBruenorTest < ActionDispatch::IntegrationTest
   using Distance::Refinements
   
   ActiveSupport::TestCase.test_order = :alpha
+  @@creation = CharacterCreation.new(name: "Bruenor")
   
-  def setup
-    @creation = CharacterCreation.new(name: "Bruenor")
+  def creation
+    @@creation
   end
   
   def bruenor
-    @creation.character
+    creation.character
   end
   
   test "1. Choosing a race" do
-    @creation.choose_race Races::MountainDwarf
+    creation.choose_race Races::MountainDwarf
     
     assert_kind_of Races::MountainDwarf, bruenor
     assert_equal 25.feet, bruenor.speed
@@ -24,7 +25,7 @@ class ApiCreatingBruenorTest < ActionDispatch::IntegrationTest
   end
   
   test "2. Choosing a class" do
-    @creation.choose_character_class CharacterClasses::Fighter
+    creation.choose_character_class CharacterClasses::Fighter
     
     assert_equal 1, bruenor.level
     assert_equal Dice("1d10"), bruenor.hit_dice
@@ -33,21 +34,19 @@ class ApiCreatingBruenorTest < ActionDispatch::IntegrationTest
   end
 
   test "3. Determining ability scores" do
-    skip
-    
-    @creation.assign_ability_score(:strength, 15)
-    @creation.assign_ability_score(:dexterity, 10)
-    @creation.assign_ability_score(:constitution, 14)
-    @creation.assign_ability_score(:intelligence, 8)
-    @creation.assign_ability_score(:wisdom, 13)
-    @creation.assign_ability_score(:charisma, 12)
+    creation.assign_ability_score(:strength, 15)
+    creation.assign_ability_score(:dexterity, 10)
+    creation.assign_ability_score(:constitution, 14)
+    creation.assign_ability_score(:intelligence, 8)
+    creation.assign_ability_score(:wisdom, 13)
+    creation.assign_ability_score(:charisma, 12)
     
     assert_equal "17 (+3)", bruenor.strength.to_s
     assert_equal "10 (+0)", bruenor.dexterity.to_s
     assert_equal "16 (+3)", bruenor.constitution.to_s
     assert_equal "8 (-1)", bruenor.intelligence.to_s
     assert_equal "13 (+1)", bruenor.wisdom.to_s
-    assert_equal "12 (+1)", bruenor.charsima.to_s
+    assert_equal "12 (+1)", bruenor.charisma.to_s
   end
 
   test "4. Describing the character" do
