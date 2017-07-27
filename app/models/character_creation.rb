@@ -16,6 +16,7 @@ class CharacterCreation < ApplicationRecord
     character.tap do |c|
       c.character_class = character_class
       c.base_hit_points = Dice.new(1, character_class.hit_die_type).max
+      c.gain_proficiency(*character_class.proficiencies)
     end
   end
   

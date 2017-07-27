@@ -1,6 +1,7 @@
 class CharacterClass < Module
-    self.hit_die_type = hit_die_type
-  def initialize(hit_die_type: :d8, &block)
+  def initialize(hit_die_type: :d8, proficiencies: [], &block)
+    self.hit_die_type  = hit_die_type
+    self.proficiencies = proficiencies
     super(&block)
   end
   
@@ -11,5 +12,13 @@ class CharacterClass < Module
   def hit_die_type=(value)
     @hit_die_type = value
     define_method(:hit_dice) { Dice.new level, value }
+  end
+  
+  def proficiencies
+    @proficiences
+  end
+  
+  def proficiencies=(value)
+    @proficiences = value
   end
 end
