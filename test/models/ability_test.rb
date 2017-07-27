@@ -12,4 +12,9 @@ class AbilityTest < ActiveSupport::TestCase
       assert_equal modifier, Ability.new(score).modifier
     end
   end
+  
+  test "the string representation of an ability show the score and the modifier" do
+    assert_equal "17 (+3)", Ability.new(17).to_s
+    assert_equal "3 (-4)", Ability.new(3).to_s
+  end
 end

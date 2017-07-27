@@ -14,6 +14,10 @@ class Ability
   end
   alias_method :add, :+
   
+  def to_s
+    "%d (%+d)" % [score, modifier]
+  end
+  
   class Type < ActiveRecord::Type::Value
     def cast(value)
       if value.kind_of? Ability
