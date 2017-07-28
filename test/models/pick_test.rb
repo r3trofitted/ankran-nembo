@@ -52,7 +52,7 @@ class PickTest < ActiveSupport::TestCase
     assert_equal [:familiar], pick.picked_items
   end
   
-  test "A pick is not done until as many items as necessary have been chosen" do
+  test "A pick is not done until as many items as necessary have been taken" do
     pick = Pick.new count: 2, list: [:hawk, :initiative, :jumping]
     
     pick.take(:jumping)
@@ -61,9 +61,20 @@ class PickTest < ActiveSupport::TestCase
     assert pick.done?
   end
   
-  test "Only items from the list can be chosen" do
+  test "Only items from the list can be taken" do
     pick = Pick.new count: 1, list: [:knight, :level, :mastiff]
     
     assert_raises(ArgumentError) { pick.take :lodging }
+  end
+  
+  
+  test "Item are ignored when picked several times" do
+    pick = Pick.new count: 2, list: [:vision, :wealth]
+    
+    pick.take :vision
+    pick.take :vision
+    
+    assert_equal [:vision], pick.picked_items
+    refute pick.done?
   end
 end
