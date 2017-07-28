@@ -61,6 +61,22 @@ class CodexTest < ActiveSupport::TestCase
     end
   end
   
+  test ".pick returns a Codex::Pick object" do
+    assert_kind_of Codex::Pick, Codex.pick(1, from: [:mapping, :navigating])
+  end
+  
+  test "a Codex::Pick object has a count and a list" do
+    pick = Codex::Pick.new(count: 2, list: [:outlander, :panther])
+    
+    assert_equal 2, pick.count
+    assert_includes pick.list, :outlander
+    assert_includes pick.list, :panther
+  end
+  
+  test "a Codex::Pick object cannot have a count higher than the length of its list" do
+    assert_raises(ArgumentError) { Codex::Pick.new(count: 3, list: [:quasit, :ranger]) }
+  end
+  
   test "Codex::Type#cast can cast to a specific kind of Codex" do
     codex_class = Class.new(Codex)
     type = Codex::Type.new(codex_class)
