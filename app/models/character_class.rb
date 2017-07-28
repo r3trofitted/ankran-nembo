@@ -23,6 +23,6 @@ class CharacterClass < Module
   end
   
   def picks
-    @proficiences.select { |p| Codex::Pick === p }
+    @proficiences.select { |p| Pick === p }
   end
 end

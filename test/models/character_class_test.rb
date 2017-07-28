@@ -18,13 +18,13 @@ class CharacterClassTest < ActiveSupport::TestCase
   test "A CharacterClass can have Codex::Pick objects for proficiencies" do
     miner = CharacterClass.new proficiencies: [ProficienciesSet.pick(3, from: [:dig, :shovel, :drill])]
     
-    assert_kind_of Codex::Pick, miner.proficiencies.first
+    assert_kind_of Pick, miner.proficiencies.first
   end
   
   test "A CharacterClass can return all its picks" do
     pitman = CharacterClass.new proficiencies: [:mine, :crawl, ProficienciesSet.pick(1, from: [:cough, :suffocate])]
     
     assert pitman.picks.one?
-    assert_instance_of Codex::Pick, pitman.picks.first
+    assert_instance_of Pick, pitman.picks.first
   end
 end

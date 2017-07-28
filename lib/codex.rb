@@ -6,7 +6,7 @@ class Codex < DelegateClass(SetWithIndifferentAccess)
   end
   
   def self.pick(count, from: )
-    Pick.new(count: count, list: from)
+    Pick.unavailable(count: count, list: from)
   end
   
   def initialize(set_or_values = nil)
@@ -31,16 +31,6 @@ class Codex < DelegateClass(SetWithIndifferentAccess)
       SetWithIndifferentAccess.new @set.flat_map { |entry| groups.with_indifferent_access.fetch(entry, []) << entry }
     else
       @set
-    end
-  end
-  
-  class Pick
-    attr_reader :count, :list
-    
-    def initialize(count:, list:)
-      raise ArgumentError, "Cannot pick #{count} items from a list of #{list.count}" if count > list.count
-      
-      @count, @list = count, list
     end
   end
   
