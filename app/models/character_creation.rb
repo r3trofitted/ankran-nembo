@@ -13,15 +13,17 @@ class CharacterCreation < ApplicationRecord
   end
   
   def choose_character_class(character_class)
+    picks, proficiencies = character_class.proficiencies.partition { |p| p.is_a? Pick }
+    
     choice_in_progress = Fiber.new do
-      character_class.picks.each do |pick|
-        picked_proficiencies = Fiber.yield pick.in_context(choice_in_progress)
-        character.gain_proficiency *picked_proficiencies
+      picks.each do |pick|
+        taken_proficiencies = Fiber.yield pick.in_context(choice_in_progress)
+        character.gain_proficiency *taken_proficiencies
       end
       
       character.character_class = character_class
       character.base_hit_points = Dice.new(1, character_class.hit_die_type).max
-      character.gain_proficiency(*character_class.proficiencies)
+      character.gain_proficiency *proficiencies
       
       character
     end
