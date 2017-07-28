@@ -21,11 +21,11 @@ class Pick
     @_available
   end
   
-  def take(item)
-    raise ArgumentError, "#{item} is not in the list" unless item.in? list
-    raise StandardError, "Cannont take item from an unavailable Pick" unless available?
+  def take(*items)
+    raise StandardError, "Cannot take item from an unavailable Pick" unless available?
+    raise ArgumentError, "Only items from the list can be taken (invalid items: #{(items - list)})" if (items - list).any?
     
-    @picked_items << item
+    @picked_items.concat(items).uniq!
   end
   
   def done?
