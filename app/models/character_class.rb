@@ -21,8 +21,4 @@ class CharacterClass < Module
   def proficiencies=(value)
     @proficiences = value
   end
-  
-  def picks
-    @proficiences.select { |p| Pick === p }
-  end
 end
