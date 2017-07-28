@@ -13,15 +13,20 @@ class CharacterCreation < ApplicationRecord
   end
   
   def choose_character_class(character_class)
-    if character_class.picks.any?
-      return Pick.new(count: 1, list: %i[this is a slime])
+    choice_in_progress = Fiber.new do
+      character_class.picks.each do |pick|
+        picked_proficiencies = Fiber.yield pick.in_context(choice_in_progress)
+        character.gain_proficiency *picked_proficiencies
+      end
+      
+      character.character_class = character_class
+      character.base_hit_points = Dice.new(1, character_class.hit_die_type).max
+      character.gain_proficiency(*character_class.proficiencies)
+      
+      character
     end
     
-    character.tap do |c|
-      c.character_class = character_class
-      c.base_hit_points = Dice.new(1, character_class.hit_die_type).max
-      c.gain_proficiency(*character_class.proficiencies)
-    end
+    choice_in_progress.resume
   end
   
   def assign_ability_score(ability, score)
