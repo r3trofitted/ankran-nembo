@@ -20,11 +20,4 @@ class CharacterClassTest < ActiveSupport::TestCase
     
     assert_kind_of Pick, miner.proficiencies.first
   end
-  
-  test "A CharacterClass can return all its picks" do
-    pitman = CharacterClass.new proficiencies: [:mine, :crawl, ProficienciesSet.pick(1, from: [:cough, :suffocate])]
-    
-    assert pitman.picks.one?
-    assert_instance_of Pick, pitman.picks.first
-  end
 end
