@@ -26,6 +26,7 @@ class Pick
     raise ArgumentError, "Only items from the list can be taken (invalid items: #{(items - list)})" if (items - list).any?
     
     @picked_items.concat(items).uniq!
+    resume_context if done?
   end
   
   def done?
@@ -35,5 +36,19 @@ class Pick
   def initialize_copy(original)
     super
     @_available = true
+  end
+  
+  def in_context(context)
+    dup.tap { |p| p.add_context(context) }
+  end
+  
+  protected def add_context(fiber)
+    raise StandardError, "Cannot add a context to an unavailable Pick" unless available?
+    
+    @_context = fiber
+  end
+  
+  private def resume_context
+    @_context.resume(picked_items) if @_context
   end
 end
