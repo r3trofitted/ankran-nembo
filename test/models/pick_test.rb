@@ -1,4 +1,5 @@
 require "test_helper"
+require "fiber"
 
 class PickTest < ActiveSupport::TestCase
   test "A Pick is defined by the number of items to take, and the list from which they can be chosen" do
@@ -76,5 +77,24 @@ class PickTest < ActiveSupport::TestCase
     
     assert_equal [:vision], pick.picked_items
     refute pick.done?
+  end
+  
+  test "Picks with a context can be created from an unavailable Pick" do
+    unavailable = Pick.unavailable count: 1, list: [:abjuration, :blindsight]
+    
+    pick = unavailable.in_context(Fiber.new{})
+    
+    assert_equal 1, pick.count
+    assert_equal [:abjuration, :blindsight], pick.list
+    refute_nil pick.instance_variable_get(:@_context)
+  end
+  
+  test "When done, a pick resumes its context" do
+    context = Fiber.new { pass "context correctly resumed" }
+    pick    = Pick.unavailable(count: 1, list: [:xp, :ysgard]).in_context(context)
+    
+    assert context.alive?
+    pick.take :xp
+    refute context.alive?
   end
 end
