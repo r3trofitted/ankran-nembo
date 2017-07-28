@@ -14,4 +14,17 @@ class CharacterClassTest < ActiveSupport::TestCase
     fafhrd.extend(fighter)
     assert_equal Dice("3d10"), fafhrd.hit_dice
   end
+  
+  test "A CharacterClass can have Codex::Pick objects for proficiencies" do
+    miner = CharacterClass.new proficiencies: [ProficienciesSet.pick(3, from: [:dig, :shovel, :drill])]
+    
+    assert_kind_of Codex::Pick, miner.proficiencies.first
+  end
+  
+  test "A CharacterClass can return all its picks" do
+    pitman = CharacterClass.new proficiencies: [:mine, :crawl, ProficienciesSet.pick(1, from: [:cough, :suffocate])]
+    
+    assert pitman.picks.one?
+    assert_instance_of Codex::Pick, pitman.picks.first
+  end
 end
