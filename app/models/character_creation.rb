@@ -13,6 +13,10 @@ class CharacterCreation < ApplicationRecord
   end
   
   def choose_character_class(character_class)
+    if character_class.picks.any?
+      return Choice.new
+    end
+    
     character.tap do |c|
       c.character_class = character_class
       c.base_hit_points = Dice.new(1, character_class.hit_die_type).max
