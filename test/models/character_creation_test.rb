@@ -53,6 +53,24 @@ class CharacterCreationTest < ActiveSupport::TestCase
     assert_includes creation.character.proficiencies, :grooming
   end
   
+  test "When a character class with mandatory proficiencies pick is chosen, a Choice object is returned" do
+    creation = CharacterCreation.new
+    character_class = CharacterClass.new proficiencies: [ProficienciesSet.pick(2, from: [:ale, :beer, :cider])]
+    
+    assert_kind_of Choice, creation.choose_character_class(character_class)
+  end
+  
+  test "When a character class with mandatory proficiencies pick is chosen, the choice is defered until the proficiencies are picked" do
+    creation = CharacterCreation.new
+    character_class = CharacterClass.new proficiencies: [ProficienciesSet.pick(2, from: [:ale, :beer, :cider])]
+    
+    choice = creation.choose_character_class(character_class)
+    assert_nil creation.character.character_class # character class is not set yet
+    
+    choice.choose(:ale, :cider)
+    assert_equal character_class, creation.character.character_class # character class is eventually set
+  end
+  
   test "When ability scores are assigned, the racial increases are preserved" do
     creation = CharacterCreation.new
     race     = Race.new ability_score_increases: { dexterity: 1 }
