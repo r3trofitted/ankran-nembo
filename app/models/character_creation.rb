@@ -14,7 +14,7 @@ class CharacterCreation < ApplicationRecord
   
   def choose_character_class(character_class)
     if character_class.picks.any?
-      return Choice.new
+      return Pick.new(count: 1, list: %i[this is a slime])
     end
     
     character.tap do |c|
