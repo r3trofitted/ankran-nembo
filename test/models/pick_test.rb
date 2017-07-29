@@ -14,35 +14,35 @@ class PickTest < ActiveSupport::TestCase
     assert_raises(ArgumentError) { Pick.new(count: 3, list: [:campaign, :death]) }
   end
   
-  test "Picks can be unavailable" do
+  test "Picks can be templates" do
     pick = Pick.new count:1, list: [:travel, :unarmed]
-    pick.unavailable!
+    pick.make_template!
     
-    refute pick.available?
+    assert pick.template?
   end
   
-  test "Nothing can be picked if the pick is not available" do
+  test "Nothing can be picked if the pick is a template" do
     pick = Pick.new count: 1, list: [:necromancy, :orc]
-    pick.unavailable!
+    pick.make_template!
     
     assert_raises(StandardError) { pick.take :orc }
   end
   
   test "Unavailable picks can be initialized directly" do
-    pick = Pick.unavailable count: 1, list: [:penalty, :quick_build]
+    pick = Pick.choose 1, from: [:penalty, :quick_build]
     
     assert_kind_of Pick, pick
-    refute pick.available?
+    assert pick.template?
   end
   
-  test "Copying an unavailable pick creates an available copy" do
-    unavailable = Pick.unavailable count: 1, list: [:resting, :sage]
+  test "Copying a template pick creates a non-template copy" do
+    template = Pick.choose 1, from: [:resting, :sage]
     
-    pick = unavailable.dup
+    pick = template.dup
     
     assert_equal 1, pick.count
     assert_equal [:resting, :sage], pick.list
-    assert pick.available?
+    refute pick.template?
   end
   
   test "Picked items can be retrieved" do
@@ -79,10 +79,10 @@ class PickTest < ActiveSupport::TestCase
     refute pick.done?
   end
   
-  test "Picks with a context can be created from an unavailable Pick" do
-    unavailable = Pick.unavailable count: 1, list: [:abjuration, :blindsight]
+  test "Picks with a context can be created from an template Pick" do
+    template = Pick.choose 1, from: [:abjuration, :blindsight]
     
-    pick = unavailable.in_context(Fiber.new{})
+    pick = template.in_context(Fiber.new{})
     
     assert_equal 1, pick.count
     assert_equal [:abjuration, :blindsight], pick.list
@@ -91,7 +91,7 @@ class PickTest < ActiveSupport::TestCase
   
   test "When done, a pick resumes its context" do
     context = Fiber.new { pass "context correctly resumed" }
-    pick    = Pick.unavailable(count: 1, list: [:xp, :ysgard]).in_context(context)
+    pick    = Pick.choose(1, from: [:xp, :ysgard]).in_context(context)
     
     assert context.alive?
     pick.take :xp
