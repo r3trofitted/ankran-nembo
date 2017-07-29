@@ -25,6 +25,35 @@ class CharacterCreationTest < ActiveSupport::TestCase
     assert_includes creation.character.proficiencies, :invocation
   end
   
+  test "When a race with mandatory proficiencies pick is chosen, a Pick object is returned" do
+    creation = CharacterCreation.new
+    race     = Race.new proficiencies: [Pick.choose(1, from: [:gummy_bear, :lollipop])]
+    
+    assert_kind_of Pick, creation.choose_race(race)
+  end
+  
+  test "When a race with picks is chosen, the picked values are added to the Character, but the picks themselves are not" do
+    creation = CharacterCreation.new
+    race = Race.new proficiencies: [:mms, Pick.choose(1, from: [:skittles, :toffee])]
+    
+    creation.choose_race(race).take(:toffee)
+    
+    assert_includes creation.character.proficiencies, :mms
+    assert_includes creation.character.proficiencies, :toffee
+    assert creation.character.proficiencies.none? { |p| p.is_a? Pick }
+  end
+  
+  test "When a race with mandatory proficiencies picks is chosen, the choice is defered until the proficiencies are picked" do
+    creation = CharacterCreation.new
+    race = Race.new proficiencies: [Pick.choose(1, from: [:liquorice, :chewing_gum])]
+    
+    pick = creation.choose_race(race)
+    assert_nil creation.character.race # character class is not set yet
+    
+    pick.take(:liquorice)
+    refute_nil creation.character.race # character class is eventually set
+  end
+  
   test "When a race is chosen, the Character's ability score are increased accordingly" do
     creation = CharacterCreation.new
     race     = Race.new ability_score_increases: { charisma: 2 }

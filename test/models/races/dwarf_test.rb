@@ -21,6 +21,16 @@ class Races::DwarfTest < ActiveSupport::TestCase
     assert_includes Races::Dwarf.proficiencies, :light_hammer
     assert_includes Races::Dwarf.proficiencies, :warhammer
   end
+  
+  test "Dwarves can pick one proficiency from smith’s tools, brewer’s supplies, and mason’s tools" do
+    picks = Races::Dwarf.proficiencies.select { |p| p.is_a? Pick }
+    
+    assert picks.one?
+    assert_equal 1, picks[0].count
+    assert_includes picks[0].list, :smiths_tools
+    assert_includes picks[0].list, :brewers_tools
+    assert_includes picks[0].list, :masons_tools
+  end
 
   test "Dwarves speak Common and Dwarvish" do
     assert_includes Races::Dwarf.languages, :common
