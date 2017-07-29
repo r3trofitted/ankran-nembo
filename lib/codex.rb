@@ -5,10 +5,6 @@ class Codex < DelegateClass(SetWithIndifferentAccess)
     new(values)
   end
   
-  def self.pick(count, from: )
-    Pick.unavailable(count: count, list: from)
-  end
-  
   def initialize(set_or_values = nil)
     @set = if set_or_values.is_a?(SetWithIndifferentAccess)
              set_or_values

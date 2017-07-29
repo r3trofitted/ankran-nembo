@@ -16,7 +16,7 @@ class CharacterClassTest < ActiveSupport::TestCase
   end
   
   test "A CharacterClass can have Codex::Pick objects for proficiencies" do
-    miner = CharacterClass.new proficiencies: [ProficienciesSet.pick(3, from: [:dig, :shovel, :drill])]
+    miner = CharacterClass.new proficiencies: [Pick.choose(3, from: [:dig, :shovel, :drill])]
     
     assert_kind_of Pick, miner.proficiencies.first
   end

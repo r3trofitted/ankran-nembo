@@ -61,13 +61,6 @@ class CodexTest < ActiveSupport::TestCase
     end
   end
   
-  test ".pick returns an unavailable Pick object" do
-    pick = Codex.pick(1, from: [:mapping, :navigating])
-    
-    assert_kind_of Pick, pick
-    refute pick.available?
-  end
-  
   test "Codex::Type#cast can cast to a specific kind of Codex" do
     codex_class = Class.new(Codex)
     type = Codex::Type.new(codex_class)

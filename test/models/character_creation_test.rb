@@ -55,14 +55,14 @@ class CharacterCreationTest < ActiveSupport::TestCase
   
   test "When a character class with mandatory proficiencies pick is chosen, a Pick object is returned" do
     creation = CharacterCreation.new
-    character_class = CharacterClass.new proficiencies: [ProficienciesSet.pick(2, from: [:ale, :beer, :cider])]
+    character_class = CharacterClass.new proficiencies: [Pick.choose(2, from: [:ale, :beer, :cider])]
     
     assert_kind_of Pick, creation.choose_character_class(character_class)
   end
   
   test "When a character class with picks is chosen, the picked values are added to the Character, but the picks themselves are not" do
     creation = CharacterCreation.new
-    character_class = CharacterClass.new proficiencies: [:red, ProficienciesSet.pick(1, from: [:white, :rosé])]
+    character_class = CharacterClass.new proficiencies: [:red, Pick.choose(1, from: [:white, :rosé])]
     
     creation.choose_character_class(character_class).take(:white)
     
@@ -73,7 +73,7 @@ class CharacterCreationTest < ActiveSupport::TestCase
   
   test "When a character class with mandatory proficiencies picks is chosen, the choice is defered until the proficiencies are picked" do
     creation = CharacterCreation.new
-    character_class = CharacterClass.new proficiencies: [ProficienciesSet.pick(2, from: [:ale, :beer, :cider])]
+    character_class = CharacterClass.new proficiencies: [Pick.choose(2, from: [:ale, :beer, :cider])]
     
     pick = creation.choose_character_class(character_class)
     assert_nil creation.character.character_class # character class is not set yet
