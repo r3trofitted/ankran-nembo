@@ -4,12 +4,23 @@ class CharacterCreation < ApplicationRecord
   end
   
   def choose_race(race)
-    character.tap do |c|
-      c.race = race
-      c.gain_language(*race.languages)
-      c.gain_proficiency(*race.proficiencies)
-      race.ability_score_increases.each { |name, amount| c.alter_ability name, by: amount }
+    picks, proficiencies = race.proficiencies.partition { |p| p.is_a? Pick }
+    
+    choice_in_progress = Fiber.new do
+      picks.each do |pick|
+        taken_proficiencies = Fiber.yield pick.in_context(choice_in_progress)
+        character.gain_proficiency *taken_proficiencies
+      end
+      
+      character.race = race
+      character.gain_language(*race.languages)
+      character.gain_proficiency(*proficiencies)
+      race.ability_score_increases.each { |name, amount| character.alter_ability name, by: amount }
+      
+      character
     end
+    
+    choice_in_progress.resume
   end
   
   def choose_character_class(character_class)
