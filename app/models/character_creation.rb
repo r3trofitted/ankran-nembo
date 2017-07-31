@@ -1,6 +1,8 @@
 class CharacterCreation < ApplicationRecord
+  MAX_PERSONNALITY_TRAITS = 2
+  
   def character
-    @character ||= Character.new(name: name, level: 1)
+    @character ||= Character.new(level: 1)
   end
   
   def choose_race(race)
@@ -20,6 +22,60 @@ class CharacterCreation < ApplicationRecord
   
   def assign_ability_score(ability, score)
     character[ability] += score
+  end
+  
+  def choose_name(name)
+    character.name = name
+  end
+  
+  def choose_sex(sex)
+    raise ArgumentError, "Invalid sex (#{sex})" unless Character.sexes.member?(sex)
+    character.sex = sex
+  end
+  
+  def choose_alignment(alignment)
+    raise ArgumentError, "Invalid alignment (#{alignment})" unless Character.alignments.member?(alignment)
+    character.alignment = alignment
+  end
+  
+  def choose_height(height)
+  end
+  
+  def choose_weight(weight)
+  end
+  
+  def choose_personnality_trait(trait)
+    character.personnality_traits = character.personnality_traits.append(trait).last(MAX_PERSONNALITY_TRAITS)
+  end
+  
+  def choose_ideal(ideal = :random)
+    if ideal == :random
+      raise(ArgumentError, "ideal cannot be chosen at random when the character has no background") if character.background.nil?
+      ideal = character.background.ideals.sample
+    end
+    
+    character.ideals << ideal
+  end
+  
+  def choose_bond(bond = :random)
+    if bond == :random
+      raise(ArgumentError, "bond cannot be chosen at random when the character has no background") if character.background.nil?
+      bond = character.background.bonds.sample
+    end
+    
+    character.bonds << bond
+  end
+  
+  def choose_flaw(flaw = :random)
+    if flaw.predicate == :random
+      raise(ArgumentError, "flaw cannot be chosen at random when the character has no background") if character.background.nil?
+      flaw = character.background.flaws.sample
+    end
+    
+    character.flaws << flaw
+  end
+  
+  def choose_background(background)
   end
   
   private
