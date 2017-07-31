@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170726093812) do
+ActiveRecord::Schema.define(version: 20170729172849) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "character_creations", force: :cascade do |t|
     t.string "name"
@@ -29,16 +32,22 @@ ActiveRecord::Schema.define(version: 20170726093812) do
     t.integer "intelligence"
     t.integer "wisdom"
     t.integer "charisma"
-    t.string "proficiencies"
-    t.string "languages"
+    t.string "proficiencies", array: true
+    t.string "languages", array: true
     t.text "armor"
     t.text "shield"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "base_hit_points"
     t.integer "lost_hit_points", default: 0, null: false
-    t.index ["languages"], name: "index_characters_on_languages"
-    t.index ["proficiencies"], name: "index_characters_on_proficiencies"
+    t.integer "sex"
+    t.integer "alignment"
+    t.string "personnality_traits", default: [], array: true
+    t.string "ideals", default: [], array: true
+    t.string "bonds", default: [], array: true
+    t.string "flaws", default: [], array: true
+    t.index ["languages"], name: "index_characters_on_languages", using: :gin
+    t.index ["proficiencies"], name: "index_characters_on_proficiencies", using: :gin
   end
 
 end
