@@ -5,6 +5,11 @@ class Character < ApplicationRecord
     %i(strength dexterity constitution intelligence wisdom charisma)
   end
   
+  enum sex: %i(male female)
+  enum alignment: %i(lawful_good    neutral_good chaotic_good
+                     lawful_neutral    neutral   chaotic_neutral
+                     lawful_evil    neutral_evil chaotic_evil)
+  
   attribute :proficiencies, Codex::Type.new(ProficienciesSet)
   attribute :languages, Codex::Type.new(LanguagesSet)
   serialize :armor

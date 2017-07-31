@@ -5,7 +5,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.2.0.rc1'
 gem 'sass-rails', '~> 5.0'
-gem 'sqlite3'
+gem 'pg', '>= 0.18', '< 2.0'
 gem 'turbolinks', '~> 5'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'uglifier', '>= 1.3.0'
