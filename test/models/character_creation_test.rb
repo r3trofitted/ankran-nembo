@@ -34,7 +34,7 @@ class CharacterCreationTest < ActiveSupport::TestCase
     assert creation.character.proficiencies.none? { |p| p.is_a? Pick }
   end
   
-  test "When a race with mandatory proficiencies picks is chosen, the choice is defered until the proficiencies are picked" do
+  test "When a race with mandatory proficiencies picks is chosen, the choice is deferred until the proficiencies are picked" do
     creation = CharacterCreation.new
     race = Race.new proficiencies: [Pick.choose(1, from: [:liquorice, :chewing_gum])]
     
@@ -161,7 +161,7 @@ class CharacterCreationTest < ActiveSupport::TestCase
   test "The character's weight can be set at random, but only if the character's race is already assigned" do
   end
   
-  test "The character's personnality traits can be chosen" do
+  test "The character's personality traits can be chosen" do
     creation = CharacterCreation.new
     
     creation.choose_personnality_trait "I was, in fact, raised by wolves."
@@ -171,7 +171,7 @@ class CharacterCreationTest < ActiveSupport::TestCase
     assert_includes creation.character.personnality_traits, "Nothing can shake my optimistic attitude."
   end
   
-  test "Once the character has two personnality traits, subsequent choices replace the previous traits" do
+  test "Once the character has two personality traits, subsequent choices replace the previous traits" do
     creation = CharacterCreation.new
     creation.choose_personnality_trait "Flattery is my preferred trick for getting what I want."
     creation.choose_personnality_trait "I pocket anything I see that might have some value."
@@ -183,7 +183,7 @@ class CharacterCreationTest < ActiveSupport::TestCase
     assert_includes creation.character.personnality_traits, "I blow up at the slightest insult."
   end
   
-  test "The character's personnality traits can be set at random, but only if the character's background is already assigned" do
+  test "The character's personality traits can be set at random, but only if the character's background is already assigned" do
     skip "Backgrounds aren't implemented yet"
     
     creation = CharacterCreation.new
@@ -195,7 +195,7 @@ class CharacterCreationTest < ActiveSupport::TestCase
     refute_empty creation.personnality_traits.ideals
   end
   
-  test "A given personnality trait cannot be set twice at random" do
+  test "A given personality trait cannot be set twice at random" do
   end
   
   test "The character's ideal can be chosen" do
