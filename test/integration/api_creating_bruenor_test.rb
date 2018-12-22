@@ -22,7 +22,7 @@ class ApiCreatingBruenorTest < ActionDispatch::IntegrationTest
     assert_equal 25.feet, bruenor.speed
     assert_includes bruenor.languages, :common
     assert_includes bruenor.languages, :dwarvish
-    assert bruenor.proficient_in?(:smiths_tools)
+    assert bruenor.proficient_with?(:smiths_tools)
   end
   
   test "2. Choosing a class" do
@@ -32,12 +32,12 @@ class ApiCreatingBruenorTest < ActionDispatch::IntegrationTest
     assert_equal Dice("1d10"), bruenor.hit_dice
     assert_equal 10 + bruenor.constitution_modifier, bruenor.hit_points
     assert_equal +2, bruenor.proficiency_bonus
-    assert bruenor.proficient_in?(:light_armor)
-    assert bruenor.proficient_in?(:medium_armor)
-    assert bruenor.proficient_in?(:heavy_armor)
-    assert bruenor.proficient_in?(:shields)
-    assert bruenor.proficient_in?(:simple_weapons)
-    assert bruenor.proficient_in?(:martial_weapons)
+    assert bruenor.proficient_with?(:light_armor)
+    assert bruenor.proficient_with?(:medium_armor)
+    assert bruenor.proficient_with?(:heavy_armor)
+    assert bruenor.proficient_with?(:shields)
+    assert bruenor.proficient_with?(:simple_weapons)
+    assert bruenor.proficient_with?(:martial_weapons)
     assert bruenor.proficient_in?(:strength_saving_throw)
     assert bruenor.proficient_in?(:constitution_saving_throw)
   end

@@ -56,6 +56,7 @@ class Character < ApplicationRecord
   def proficient_in?(proficiency)
     proficiencies.include? proficiency
   end
+  alias_method :proficient_with?, :proficient_in?
   
   def base_speed
     30.feet
