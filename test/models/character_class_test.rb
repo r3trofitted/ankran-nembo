@@ -15,7 +15,7 @@ class CharacterClassTest < ActiveSupport::TestCase
     assert_equal Dice("3d10"), fafhrd.hit_dice
   end
   
-  test "A CharacterClass can have Codex::Pick objects for proficiencies" do
+  test "A CharacterClass can have Pick objects for proficiencies" do
     miner = CharacterClass.new proficiencies: [Pick.choose(3, from: [:dig, :shovel, :drill])]
     
     assert_kind_of Pick, miner.proficiencies.first
