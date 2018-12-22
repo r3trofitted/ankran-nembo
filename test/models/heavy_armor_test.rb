@@ -8,6 +8,11 @@ class HeavyArmorTest < ActiveSupport::TestCase
     assert armor.penalises_stealth?
   end
   
+  test "a heavy armor can still *not* penalise stealth" do
+    magic_armor = HeavyArmor.new(17, str: 11, penalises_stealth: false)
+    refute magic_armor.penalises_stealth?
+  end
+  
   test "a heavy armor can impose a speed penalty if its wearer's strength isn't high enough" do
     armor = HeavyArmor.new(14, str: 13)
     
