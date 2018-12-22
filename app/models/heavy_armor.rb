@@ -3,8 +3,7 @@ class HeavyArmor < Armor
   
   def initialize(ac, str: nil, **kwargs)
     @str = str
-    kwargs[:penalises_stealth] = true unless kwargs.has_key?(:penalises_stealth)
-    super(ac, kwargs)
+    super ac, kwargs.with_defaults(penalises_stealth: true)
   end
   
   def required_strength
