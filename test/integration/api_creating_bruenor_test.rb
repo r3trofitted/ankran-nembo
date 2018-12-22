@@ -66,8 +66,8 @@ class ApiCreatingBruenorTest < ActionDispatch::IntegrationTest
     creation.choose_alignment :lawful_good
     creation.choose_height :random
     creation.choose_weight :random
-    creation.choose_personnality_trait "I am a caring, sensitive dwarf who genuinely loves his friends and allies."
-    creation.choose_personnality_trait "I hide this soft heart behind a gruff, snarling demeanor."
+    creation.choose_personality_trait "I am a caring, sensitive dwarf who genuinely loves his friends and allies."
+    creation.choose_personality_trait "I hide this soft heart behind a gruff, snarling demeanor."
     creation.choose_ideal "Fairness"
     creation.choose_bond "Someday reclaiming Mithral Hall, my homeland, from the shadow dragon that drove the dwarves out."
     creation.choose_flaw "I have a soft spot for orphans and wayward souls, leading me to show mercy even when it might not be warranted."
@@ -78,8 +78,8 @@ class ApiCreatingBruenorTest < ActionDispatch::IntegrationTest
     assert bruenor.lawful_good?
     refute_nil bruenor.height
     refute_nil bruenor.weight
-    assert_include bruenor.personnality_traits, "I am a caring, sensitive dwarf who genuinely loves his friends and allies."
-    assert_include bruenor.personnality_traits, "I hide this soft heart behind a gruff, snarling demeanor."
+    assert_include bruenor.personality_traits, "I am a caring, sensitive dwarf who genuinely loves his friends and allies."
+    assert_include bruenor.personality_traits, "I hide this soft heart behind a gruff, snarling demeanor."
     assert_include bruenor.ideals, "Fairness"
     assert_include bruenor.bonds, "Someday reclaiming Mithral Hall, my homeland, from the shadow dragon that drove the dwarves out."
     assert_include bruenor.flaws, "I have a soft spot for orphans and wayward souls, leading me to show mercy even when it might not be warranted."

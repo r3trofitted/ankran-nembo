@@ -164,23 +164,23 @@ class CharacterCreationTest < ActiveSupport::TestCase
   test "The character's personality traits can be chosen" do
     creation = CharacterCreation.new
     
-    creation.choose_personnality_trait "I was, in fact, raised by wolves."
-    creation.choose_personnality_trait "Nothing can shake my optimistic attitude."
+    creation.choose_personality_trait "I was, in fact, raised by wolves."
+    creation.choose_personality_trait "Nothing can shake my optimistic attitude."
     
-    assert_includes creation.character.personnality_traits, "I was, in fact, raised by wolves."
-    assert_includes creation.character.personnality_traits, "Nothing can shake my optimistic attitude."
+    assert_includes creation.character.personality_traits, "I was, in fact, raised by wolves."
+    assert_includes creation.character.personality_traits, "Nothing can shake my optimistic attitude."
   end
   
   test "Once the character has two personality traits, subsequent choices replace the previous traits" do
     creation = CharacterCreation.new
-    creation.choose_personnality_trait "Flattery is my preferred trick for getting what I want."
-    creation.choose_personnality_trait "I pocket anything I see that might have some value."
+    creation.choose_personality_trait "Flattery is my preferred trick for getting what I want."
+    creation.choose_personality_trait "I pocket anything I see that might have some value."
     
-    creation.choose_personnality_trait "I blow up at the slightest insult."
+    creation.choose_personality_trait "I blow up at the slightest insult."
     
-    refute_includes creation.character.personnality_traits, "Flattery is my preferred trick for getting what I want."
-    assert_includes creation.character.personnality_traits, "I pocket anything I see that might have some value."
-    assert_includes creation.character.personnality_traits, "I blow up at the slightest insult."
+    refute_includes creation.character.personality_traits, "Flattery is my preferred trick for getting what I want."
+    assert_includes creation.character.personality_traits, "I pocket anything I see that might have some value."
+    assert_includes creation.character.personality_traits, "I blow up at the slightest insult."
   end
   
   test "The character's personality traits can be set at random, but only if the character's background is already assigned" do
@@ -188,11 +188,11 @@ class CharacterCreationTest < ActiveSupport::TestCase
     
     creation = CharacterCreation.new
     
-    assert_raises(ArgumentError) { creation.choose_personnality_trait :random }
+    assert_raises(ArgumentError) { creation.choose_personality_trait :random }
     
     creation.choose_background Backgrounds::Sailor
     creation.choose_ideal(:random)
-    refute_empty creation.personnality_traits.ideals
+    refute_empty creation.personality_traits.ideals
   end
   
   test "A given personality trait cannot be set twice at random" do
