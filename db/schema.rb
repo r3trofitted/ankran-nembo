@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20170729172849) do
     t.integer "lost_hit_points", default: 0, null: false
     t.integer "sex"
     t.integer "alignment"
-    t.string "personnality_traits", default: [], array: true
+    t.string "personality_traits", default: [], array: true
     t.string "ideals", default: [], array: true
     t.string "bonds", default: [], array: true
     t.string "flaws", default: [], array: true

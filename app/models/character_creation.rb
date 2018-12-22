@@ -44,8 +44,8 @@ class CharacterCreation < ApplicationRecord
   def choose_weight(weight)
   end
   
-  def choose_personnality_trait(trait)
-    character.personnality_traits = character.personnality_traits.append(trait).last(MAX_PERSONNALITY_TRAITS)
+  def choose_personality_trait(trait)
+    character.personality_traits = character.personality_traits.append(trait).last(MAX_PERSONNALITY_TRAITS)
   end
   
   def choose_ideal(ideal = :random)
