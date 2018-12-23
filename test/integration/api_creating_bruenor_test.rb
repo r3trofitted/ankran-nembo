@@ -16,7 +16,8 @@ class ApiCreatingBruenorTest < ActionDispatch::IntegrationTest
   end
   
   test "1. Choosing a race" do
-    creation.choose_race(Races::MountainDwarf).take(:smiths_tools) # TODO: it would probably to nice to have something like: +creation.choose_race Races::MountainDwarf, picking: :smiths_tools+
+    creation.choose_race(Races::MountainDwarf)
+    creation.pick(:smiths_tools) # TODO: it would probably to nice to have something like: +creation.choose_race Races::MountainDwarf, picking: :smiths_tools+
     
     assert_kind_of Races::MountainDwarf, bruenor
     assert_equal 25.feet, bruenor.speed

@@ -27,7 +27,8 @@ class CharacterCreationTest < ActiveSupport::TestCase
     creation = CharacterCreation.new
     race = Race.new proficiencies: [:mms, Pick.choose(1, from: [:skittles, :toffee])]
     
-    creation.choose_race(race).take(:toffee)
+    creation.choose_race(race)
+    creation.pick :toffee
     
     assert_includes creation.character.proficiencies, :mms
     assert_includes creation.character.proficiencies, :toffee
@@ -38,10 +39,10 @@ class CharacterCreationTest < ActiveSupport::TestCase
     creation = CharacterCreation.new
     race = Race.new proficiencies: [Pick.choose(1, from: [:liquorice, :chewing_gum])]
     
-    pick = creation.choose_race(race)
+    creation.choose_race(race)
     assert_nil creation.character.race # character class is not set yet
     
-    pick.take(:liquorice)
+    creation.pick :liquorice
     refute_nil creation.character.race # character class is eventually set
   end
   
@@ -84,7 +85,8 @@ class CharacterCreationTest < ActiveSupport::TestCase
     creation = CharacterCreation.new
     character_class = CharacterClass.new proficiencies: [:red, Pick.choose(1, from: [:white, :rosé])]
     
-    creation.choose_character_class(character_class).take(:white)
+    creation.choose_character_class(character_class)
+    creation.pick :white
     
     assert_includes creation.character.proficiencies, :red
     assert_includes creation.character.proficiencies, :white
@@ -95,10 +97,10 @@ class CharacterCreationTest < ActiveSupport::TestCase
     creation = CharacterCreation.new
     character_class = CharacterClass.new proficiencies: [Pick.choose(2, from: [:ale, :beer, :cider])]
     
-    pick = creation.choose_character_class(character_class)
+    creation.choose_character_class(character_class)
     assert_nil creation.character.character_class # character class is not set yet
     
-    pick.take(:ale, :cider)
+    creation.pick :ale, :cider
     refute_nil creation.character.character_class # character class is eventually set
   end
   
@@ -266,5 +268,17 @@ class CharacterCreationTest < ActiveSupport::TestCase
   
   test "When a background with picks is chosen, the picked values are added to the Character, but the picks themselves are not" do
     skip "Backgrounds aren't implemented yet"
+  end
+
+  test "A RuntimeError is raised when trying to pick values when is not necessary" do
+    creation = CharacterCreation.new
+    
+    assert_raises(RuntimeError) { creation.pick :whatever }
+    
+    race = Race.new proficiencies: [Pick.choose(1, from: [:liquorice, :chewing_gum])]
+    creation.choose_race(race)
+    creation.pick :chewing_gum
+    
+    assert_raises(RuntimeError) { creation.pick :liquorice } # the pick has already been made
   end
 end

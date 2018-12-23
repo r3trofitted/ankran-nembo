@@ -78,6 +78,12 @@ class CharacterCreation < ApplicationRecord
   def choose_background(background)
   end
   
+  def pick(*args)
+    raise RuntimeError, "no pick to be made" if @_pick.nil? || @_pick.done?
+    
+    @_pick.take *args
+  end
+  
   private
   
   # Handles the assignement of proficiencies when applying other treatments to the character 
@@ -97,7 +103,8 @@ class CharacterCreation < ApplicationRecord
     
     choice_in_progress = Fiber.new do
       picks.each do |pick|
-        taken_proficiencies = Fiber.yield pick.in_context(choice_in_progress)
+        @_pick = pick.in_context(choice_in_progress)
+        taken_proficiencies = Fiber.yield @_pick
         character.gain_proficiency *taken_proficiencies
       end
       character.gain_proficiency(*other_proficiencies)
