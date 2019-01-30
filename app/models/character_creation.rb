@@ -29,12 +29,12 @@ class CharacterCreation < ApplicationRecord
   end
   
   def choose_sex(sex)
-    raise ArgumentError, "Invalid sex (#{sex})" unless Character.sexes.member?(sex)
+    raise ArgumentError, "Invalid sex (#{sex})" unless sex.in? Character.sexes
     character.sex = sex
   end
   
   def choose_alignment(alignment)
-    raise ArgumentError, "Invalid alignment (#{alignment})" unless Character.alignments.member?(alignment)
+    raise ArgumentError, "Invalid alignment (#{alignment})" unless alignment.in? Character.alignments
     character.alignment = alignment
   end
   
