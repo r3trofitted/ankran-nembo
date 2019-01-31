@@ -238,8 +238,8 @@ class CharacterCreationTest < ActiveSupport::TestCase
   
   test "The character's flaw can be chosen" do
     creation = CharacterCreation.new
-    creation.choose_bond "It’s not stealing if I need it more than someone else."
-    assert_includes creation.character.bonds, "It’s not stealing if I need it more than someone else."
+    creation.choose_flaw "It’s not stealing if I need it more than someone else."
+    assert_includes creation.character.flaws, "It’s not stealing if I need it more than someone else."
   end
   
   test "The character's flaw can be set at random, but only if the character's background is already assigned" do
