@@ -67,7 +67,7 @@ class CharacterCreation < ApplicationRecord
   end
   
   def choose_flaw(flaw = :random)
-    if flaw.predicate == :random
+    if flaw == :random
       raise(ArgumentError, "flaw cannot be chosen at random when the character has no background") if character.background.nil?
       flaw = character.background.flaws.sample
     end
