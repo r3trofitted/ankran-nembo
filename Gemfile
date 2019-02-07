@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+ruby "~> 2.6"
+
 gem 'jbuilder', '~> 2.5'
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.2'
