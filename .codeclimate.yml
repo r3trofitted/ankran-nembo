@@ -11,9 +11,6 @@ engines:
       - ruby
   fixme:
     enabled: true
-  rubocop:
-    enabled: true
-    channel: rubocop-0-63
 ratings:
   paths:
   - Gemfile.lock
@@ -25,4 +22,3 @@ exclude_paths:
 - doc/
 - test/
 - public/
-- '.rubocop.yml'

@@ -20,7 +20,6 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   gem 'capybara', '~> 3.3'
-  gem 'rubocop', require: false
   gem 'selenium-webdriver'
 end
 
