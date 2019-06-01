@@ -270,7 +270,7 @@ class CharacterCreationTest < ActiveSupport::TestCase
     skip "Backgrounds aren't implemented yet"
   end
 
-  test "A RuntimeError is raised when trying to pick values when is not necessary" do
+  test "A RuntimeError is raised when trying to pick values when it is not necessary" do
     creation = CharacterCreation.new
     
     assert_raises(RuntimeError) { creation.pick :whatever }
