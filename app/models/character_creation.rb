@@ -1,4 +1,4 @@
-class CharacterCreation < ApplicationRecord
+class CharacterCreation
   MAX_PERSONNALITY_TRAITS = 2
   
   def character
