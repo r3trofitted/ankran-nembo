@@ -1,9 +1,9 @@
 class HeavyArmor < Armor
   using Distance::Refinements
   
-  def initialize(ac, str: nil, **kwargs)
+  def initialize(ac, penalises_stealth: true, str: nil)
     @str = str
-    super ac, kwargs.with_defaults(penalises_stealth: true)
+    super ac, penalises_stealth: penalises_stealth
   end
   
   def required_strength
